@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Таргет Про — курс таргетолога</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--p:#7B5EE8;--pl:#ede9fb;--pd:#6342c8;--bg:#f5f4f8;--w:#fff;--b:#e8e6f0;--t:#1a1a2e;--m:#888;--l:#aaa;--g:#e8faf0;--gt:#1a7a3c}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t);line-height:1.6}
+
+/* TOPBAR */
+.topbar{background:var(--w);border-bottom:1px solid var(--b);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none;cursor:pointer}
+.logo-icon{width:34px;height:34px;background:var(--p);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.logo-name{font-size:14px;font-weight:600;color:var(--t)}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.btn{border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:500;cursor:pointer;transition:.15s}
+.btn-purple{background:var(--p);color:#fff}.btn-purple:hover{opacity:.88}
+.btn-outline{background:transparent;color:var(--p);border:1.5px solid var(--p)}.btn-outline:hover{background:var(--pl)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.user-pill{background:var(--pl);color:var(--pd);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
+
+/* PAGES */
+.page{display:none}.page.active{display:block}
+
+/* ── LANDING ── */
+.hero{background:var(--w);border-bottom:1px solid var(--b);padding:60px 20px 50px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:5px;background:var(--pl);color:var(--pd);font-size:12px;font-weight:500;padding:4px 14px;border-radius:20px;margin-bottom:18px}
+.hero h1{font-size:clamp(24px,5vw,40px);font-weight:700;line-height:1.25;margin-bottom:14px;max-width:600px;margin-left:auto;margin-right:auto}
+.hero h1 span{color:var(--p)}
+.hero-sub{font-size:14px;color:var(--m);max-width:460px;margin:0 auto 28px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:28px}
+.hs{background:var(--bg);border-radius:10px;padding:12px 18px;min-width:90px}
+.hs-n{font-size:20px;font-weight:700;color:var(--p)}.hs-l{font-size:11px;color:var(--l);margin-top:2px}
+.cta-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.cta-main{background:var(--p);color:#fff;border:none;border-radius:11px;padding:15px 38px;font-size:15px;font-weight:600;cursor:pointer;transition:.15s}.cta-main:hover{opacity:.88}
+.cta-note{font-size:12px;color:var(--l)}
+
+.sec-block{background:var(--w);border-bottom:1px solid var(--b);padding:44px 20px}
+.sec-bg{background:var(--bg)}
+.inner{max-width:720px;margin:0 auto}
+.eyebrow{font-size:11px;font-weight:600;color:var(--p);text-transform:uppercase;letter-spacing:.08em;margin-bottom:5px}
+.sec-h{font-size:20px;font-weight:700;color:var(--t);margin-bottom:20px}
+
+.fw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.fw-card{background:var(--w);border-radius:11px;padding:16px}
+.fw-icon{width:36px;height:36px;background:var(--pl);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px}
+.fw-title{font-size:13px;font-weight:600;color:var(--t);margin-bottom:3px}
+.fw-desc{font-size:12px;color:var(--m);line-height:1.6}
+
+.prog-list{display:flex;flex-direction:column;gap:6px}
+.prog-row{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:8px;padding:11px 13px}
+.prog-num{width:26px;height:26px;background:var(--pl);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--pd);flex-shrink:0}
+.prog-title{font-size:13px;color:var(--t);flex:1}
+.prog-meta{font-size:11px;color:var(--l)}
+.prog-more{background:var(--pl);border-radius:8px;padding:11px 13px;font-size:12px;color:var(--pd);text-align:center;font-weight:500}
+
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+.res-card{background:var(--bg);border-radius:11px;padding:14px;display:flex;align-items:flex-start;gap:10px}
+.res-icon{width:32px;height:32px;background:var(--g);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.res-text{font-size:12px;color:var(--t);line-height:1.6}
+
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.rev-card{background:var(--w);border:1px solid var(--b);border-radius:11px;padding:16px}
+.rev-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.rev-av{width:34px;height:34px;background:var(--pl);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--pd);flex-shrink:0}
+.rev-name{font-size:13px;font-weight:600;color:var(--t)}.rev-role{font-size:11px;color:var(--l)}
+.stars{color:#f59e0b;margin-left:auto;font-size:12px}
+.rev-text{font-size:12px;color:#555;line-height:1.7}
+
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.pc{background:var(--bg);border:1px solid var(--b);border-radius:13px;padding:20px}
+.pc.featured{background:var(--w);border:2px solid var(--p)}
+.pop-badge{display:inline-block;background:var(--pl);color:var(--pd);font-size:10px;font-weight:600;padding:3px 9px;border-radius:5px;margin-bottom:6px;text-transform:uppercase}
+.pc-label{font-size:11px;color:var(--l);text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.pc-name{font-size:16px;font-weight:700;color:var(--t);margin-bottom:5px}
+.pc-price{font-size:26px;font-weight:700;color:var(--p);margin-bottom:4px}
+.pc-price span{font-size:13px;color:var(--l);font-weight:400}
+.pc-soon{font-size:12px;color:var(--m);margin-bottom:14px}
+.pc-feats{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.pf{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--t)}
+.pf::before{content:'✓';color:var(--p);font-weight:700;flex-shrink:0}
+.pc-btn{width:100%;padding:11px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s;border:none}
+.pc-btn:hover{opacity:.88}
+.solid{background:var(--p);color:#fff}
+.outline{background:transparent;color:var(--p);border:1.5px solid var(--p)}
+
+.faq-list{display:flex;flex-direction:column;gap:7px}
+details{background:var(--bg);border-radius:9px;padding:13px 15px;cursor:pointer}
+details[open]{background:var(--pl)}
+summary{font-size:13px;font-weight:500;color:var(--t);list-style:none;display:flex;justify-content:space-between;align-items:center;user-select:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:'+';font-size:17px;color:var(--p)}
+details[open] summary::after{content:'−'}
+.faq-a{font-size:12px;color:var(--m);margin-top:9px;line-height:1.7}
+
+.footer-cta{background:var(--p);padding:52px 20px;text-align:center}
+.footer-cta h2{font-size:22px;font-weight:700;color:#fff;margin-bottom:7px}
+.footer-cta p{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:22px}
+.fc-btn{background:#fff;color:var(--p);border:none;border-radius:11px;padding:13px 34px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}.fc-btn:hover{opacity:.9}
+footer{background:var(--w);border-top:1px solid var(--b);padding:18px 20px;text-align:center;font-size:12px;color:var(--l)}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:var(--w);border-radius:16px;padding:32px;width:100%;max-width:380px;margin:16px}
+.modal h2{font-size:20px;font-weight:700;color:var(--t);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--m);margin-bottom:22px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+label{font-size:12px;font-weight:500;color:var(--t)}
+input{border:1px solid var(--b);border-radius:8px;padding:10px 13px;font-size:14px;font-family:inherit;outline:none;transition:.15s}
+input:focus{border-color:var(--p)}
+.modal-btn{width:100%;background:var(--p);color:#fff;border:none;border-radius:9px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;margin-top:4px;transition:.15s}.modal-btn:hover{opacity:.88}
+.modal-note{font-size:11px;color:var(--l);text-align:center;margin-top:10px}
+.modal-switch{font-size:12px;color:var(--m);text-align:center;margin-top:14px}
+.modal-switch a{color:var(--p);cursor:pointer;text-decoration:none;font-weight:500}
+.modal-err{background:#fef2f2;color:#dc2626;border-radius:7px;padding:9px 12px;font-size:12px;margin-bottom:10px;display:none}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:20px;color:var(--l);cursor:pointer}
+.modal-wrap{position:relative}
+
+/* ── PLATFORM ── */
+.platform-layout{display:flex;min-height:calc(100vh - 57px)}
+.sidebar{width:280px;background:var(--w);border-right:1px solid var(--b);flex-shrink:0;overflow-y:auto;max-height:calc(100vh - 57px);position:sticky;top:57px}
+.content-area{flex:1;padding:28px 24px;max-width:900px}
+@media(max-width:700px){.platform-layout{flex-direction:column}.sidebar{width:100%;position:static;max-height:none}}
+
+.sidebar-header{padding:16px;border-bottom:1px solid var(--b)}
+.sidebar-title{font-size:13px;font-weight:600;color:var(--t);margin-bottom:4px}
+.prog-bar{height:5px;background:var(--bg);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--p);border-radius:3px;transition:.4s}
+.prog-label{font-size:11px;color:var(--l);margin-top:5px}
+
+.mod-group{border-bottom:1px solid var(--b)}
+.mod-title-btn{width:100%;background:none;border:none;padding:14px 16px;display:flex;align-items:center;gap:10px;cursor:pointer;text-align:left;transition:.1s}
+.mod-title-btn:hover{background:var(--bg)}
+.mod-title-btn.active-mod{background:var(--pl)}
+.mod-num-badge{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.mn-done{background:var(--g);color:var(--gt)}.mn-active{background:var(--pl);color:var(--pd)}.mn-lock{background:var(--bg);color:var(--l)}
+.mod-info-wrap{flex:1}
+.mod-name{font-size:12px;font-weight:600;color:var(--t);line-height:1.3}
+.mod-lessons-count{font-size:11px;color:var(--l);margin-top:1px}
+.mod-chevron{font-size:12px;color:var(--l);transition:.2s}
+.mod-title-btn.open .mod-chevron{transform:rotate(90deg)}
+
+.lessons-list{display:none;padding:4px 0}
+.mod-title-btn.open + .lessons-list{display:block}
+.lesson-btn{width:100%;background:none;border:none;padding:9px 16px 9px 26px;display:flex;align-items:center;gap:9px;cursor:pointer;text-align:left;transition:.1s}
+.lesson-btn:hover{background:var(--bg)}
+.lesson-btn.active-lesson{background:var(--pl)}
+.lesson-btn.locked-lesson{cursor:not-allowed;opacity:.5}
+.les-ic{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0}
+.li-done{background:var(--g);color:var(--gt)}.li-play{background:var(--pl);color:var(--pd)}.li-lock{background:var(--bg);color:var(--l)}
+.les-name{font-size:12px;color:var(--t);flex:1;line-height:1.4}
+.les-name.done-text{text-decoration:line-through;color:var(--l)}
+.les-dur{font-size:10px;color:var(--l)}
+.free-tag{font-size:9px;background:var(--g);color:var(--gt);padding:2px 6px;border-radius:4px;font-weight:600}
+
+/* LESSON CONTENT */
+.lesson-content{display:none}
+.lesson-content.show{display:block}
+.lc-eyebrow{font-size:11px;font-weight:600;color:var(--p);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.lc-title{font-size:22px;font-weight:700;color:var(--t);margin-bottom:6px}
+.lc-meta{font-size:12px;color:var(--l);margin-bottom:22px;display:flex;align-items:center;gap:12px}
+.lc-text{font-size:14px;color:#333;line-height:1.8;margin-bottom:28px}
+.lc-text h3{font-size:16px;font-weight:600;color:var(--t);margin:18px 0 8px}
+.lc-text ul{padding-left:18px;margin:8px 0}
+.lc-text li{margin-bottom:5px}
+.lc-text p{margin-bottom:12px}
+.video-wrap{background:#000;border-radius:12px;overflow:hidden;margin-bottom:24px;aspect-ratio:16/9}
+.video-wrap iframe{width:100%;height:100%;border:none}
+.nav-btns{display:flex;gap:10px;flex-wrap:wrap}
+.mark-done-btn{background:var(--g);color:var(--gt);border:none;border-radius:8px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}.mark-done-btn:hover{opacity:.85}
+.next-lesson-btn{background:var(--p);color:#fff;border:none;border-radius:8px;padding:11px 20px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}.next-lesson-btn:hover{opacity:.88}
+
+/* LOCK SCREEN */
+.lock-screen{background:var(--w);border-radius:14px;border:1px solid var(--b);padding:40px 24px;text-align:center;max-width:480px;margin:0 auto}
+.lock-icon{font-size:48px;margin-bottom:16px}
+.lock-title{font-size:20px;font-weight:700;color:var(--t);margin-bottom:8px}
+.lock-desc{font-size:14px;color:var(--m);margin-bottom:24px;line-height:1.7}
+
+/* WELCOME */
+.welcome-card{background:var(--w);border:1px solid var(--b);border-radius:14px;padding:28px;margin-bottom:20px}
+.wc-title{font-size:18px;font-weight:700;color:var(--t);margin-bottom:8px}
+.wc-sub{font-size:13px;color:var(--m);line-height:1.7;margin-bottom:16px}
+.wc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.wcs{background:var(--bg);border-radius:9px;padding:12px;text-align:center}
+.wcs-n{font-size:18px;font-weight:700;color:var(--p)}
+.wcs-l{font-size:11px;color:var(--l);margin-top:2px}
+
+/* FORM */
+.form-section-wrap{background:var(--w);border-bottom:1px solid var(--b);padding:48px 20px}
+.form-inner{max-width:460px;margin:0 auto}
+.form-group{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+select{border:1px solid var(--b);border-radius:8px;padding:10px 13px;font-size:14px;font-family:inherit;outline:none;background:var(--w)}
+.form-submit{width:100%;background:var(--p);color:#fff;border:none;border-radius:9px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s}.form-submit:hover{opacity:.88}
+.form-note{font-size:11px;color:var(--l);text-align:center;margin-top:9px}
+.success-msg{display:none;background:var(--g);color:var(--gt);border-radius:9px;padding:15px;font-size:14px;text-align:center;font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo" onclick="goLanding()">
+    <div class="logo-icon">🎯</div>
+    <span class="logo-name">Таргет Про</span>
+  </div>
+  <div class="topbar-right" id="topbar-right">
+    <button class="btn btn-outline btn-sm" onclick="openModal('login')">Войти</button>
+    <button class="btn btn-purple btn-sm" onclick="openModal('register')">Записаться</button>
+  </div>
+</header>
+
+<!-- ══════════ LANDING PAGE ══════════ -->
+<div id="page-landing" class="page active">
+
+  <section class="hero">
+    <div class="badge">🚀 Старт потока — МЫ ПОКА САМИ НЕ ЗНАЕМ))) июля</div>
+    <h1>Стань <span>таргетологом</span><br>с нуля за 3 месяца</h1>
+    <p class="hero-sub">Практический курс по рекламе в Meta и Insogram . Реальные кейсы, живые проекты.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">1 240</div><div class="hs-l">Выпускников</div></div>
+      <div class="hs"><div class="hs-n">20</div><div class="hs-l">Модулей</div></div>
+      <div class="hs"><div class="hs-n">105</div><div class="hs-l">Уроков</div></div>
+      <div class="hs"><div class="hs-n">3 мес</div><div class="hs-l">Обучения</div></div>
+    </div>
+    <div class="cta-wrap">
+      <button class="cta-main" onclick="openModal('register')">Начать бесплатно</button>
+      <span class="cta-note">🎁 Первые 2 урока бесплатно — без карты</span>
+    </div>
+  </section>
+
+  <div class="sec-block sec-bg">
+    <div class="inner">
+      <div class="eyebrow">Для кого</div>
+      <div class="sec-h">Кому подойдёт курс</div>
+      <div class="fw-grid">
+        <div class="fw-card"><div class="fw-icon">👤</div><div class="fw-title">Новичкам без опыта</div><div class="fw-desc">С нуля до первого оплачиваемого проекта</div></div>
+        <div class="fw-card"><div class="fw-icon">💼</div><div class="fw-title">Фрилансерам и SMM</div><div class="fw-desc">Добавьте таргет — увеличьте доход в 1.5–2 раза</div></div>
+        <div class="fw-card"><div class="fw-icon">🏪</div><div class="fw-title">Владельцам бизнеса</div><div class="fw-desc">Настраивайте рекламу сами без агентств</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-block">
+    <div class="inner">
+      <div class="eyebrow">Программа</div>
+      <div class="sec-h">20 модулей курса</div>
+      <div class="prog-list">
+        <div class="prog-row"><div class="prog-num">01</div><div class="prog-title">Основы таргетированной рекламы</div><div class="prog-meta">5 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">02</div><div class="prog-title">Аудитории и сегменты</div><div class="prog-meta">6 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">03</div><div class="prog-title">Рекламные кабинеты Meta</div><div class="prog-meta">7 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">04</div><div class="prog-title">Креативы и продающие тексты</div><div class="prog-meta">8 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">05</div><div class="prog-title">Аналитика и оптимизация</div><div class="prog-meta">6 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">06</div><div class="prog-title">Таргет ВКонтакте</div><div class="prog-meta">5 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">07</div><div class="prog-title">Реклама в Telegram</div><div class="prog-meta">5 уроков</div></div>
+        <div class="prog-more">+ ещё 13 модулей: работа с клиентами, кейсы, ценообразование</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-block sec-bg">
+    <div class="inner">
+      <div class="eyebrow">Результат</div>
+      <div class="sec-h">Что вы получите</div>
+      <div class="res-grid">
+        <div class="res-card"><div class="res-icon">🎓</div><div class="res-text">Cертификат таргетолога</div></div>
+        <div class="res-card"><div class="res-icon">👥</div><div class="res-text">Закрытое сообщество выпускников</div></div>
+        <div class="res-card"><div class="res-icon">🤝</div><div class="res-text">Помощь в трудоустройстве</div></div>
+        <div class="res-card"><div class="res-icon">♾️</div><div class="res-text">Пожизненный доступ к материалам</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-block">
+    <div class="inner">
+      <div class="eyebrow">Отзывы</div>
+      <div class="sec-h">Что говорят выпускники</div>
+      <div class="reviews-grid">
+        <div class="rev-card"><div class="rev-top"><div class="rev-av">АК</div><div><div class="rev-name">Алина К.</div><div class="rev-role">Фрилансер, Москва</div></div><div class="stars">★★★★★</div></div><div class="rev-text">За месяц после курса нашла трёх клиентов. Практика реальная, не вода — сразу в дело.</div></div>
+        <div class="rev-card"><div class="rev-top"><div class="rev-av">МТ</div><div><div class="rev-name">Максим Т.</div><div class="rev-role">Владелец кофейни</div></div><div class="stars">★★★★★</div></div><div class="rev-text">Настроил рекламу сам — сэкономил 40 000 руб. в месяц на агентстве. Окупился за неделю.</div></div>
+        <div class="rev-card"><div class="rev-top"><div class="rev-av">СМ</div><div><div class="rev-name">Светлана М.</div><div class="rev-role">SMM-специалист</div></div><div class="stars">★★★★★</div></div><div class="rev-text">Добавила таргет к услугам — чек на клиентов вырос вдвое. Рекомендую!</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-block sec-bg">
+    <div class="inner">
+      <div class="eyebrow">Тарифы</div>
+      <div class="sec-h">Выберите формат</div>
+      <div class="pricing-grid">
+        <div class="pc">
+          <div class="pc-label">Самостоятельный</div>
+          <div class="pc-name">Базовый</div>
+          <div class="pc-price">— <span>руб.</span></div>
+          <div class="pc-soon">Цена будет объявлена</div>
+          <div class="pc-feats"><div class="pf">Все 20 модулей</div><div class="pf">Домашние задания</div><div class="pf">Чат поддержки</div><div class="pf">Пожизненный доступ</div></div>
+          <button class="pc-btn outline" onclick="openModal('register')">Предзаписаться</button>
+        </div>
+        <div class="pc featured">
+          <div class="pop-badge">★ Популярный</div>
+          <div class="pc-label">С куратором</div>
+          <div class="pc-name">Профессионал</div>
+          <div class="pc-price">— <span>руб.</span></div>
+          <div class="pc-soon">Цена будет объявлена</div>
+          <div class="pc-feats"><div class="pf">Всё из базового</div><div class="pf">Проверка ДЗ куратором</div><div class="pf">2 вебинара в неделю</div><div class="pf">Помощь в трудоустройстве</div></div>
+          <button class="pc-btn solid" onclick="openModal('register')">Предзаписаться</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-block">
+    <div class="inner">
+      <div class="eyebrow">Вопросы</div>
+      <div class="sec-h">Часто спрашивают</div>
+      <div class="faq-list">
+        <details><summary>Нужен ли опыт в рекламе?</summary><div class="faq-a">Нет, курс подходит для полных новичков. Начинаем с самых азов.</div></details>
+        <details><summary>Сколько времени нужно в день?</summary><div class="faq-a">1–2 часа в день. Можно учиться в своём темпе — доступ без ограничений.</div></details>
+        <details><summary>Будет ли обратная связь?</summary><div class="faq-a">В тарифе «Профессионал» куратор проверяет все домашние задания.</div></details>
+        <details><summary>Есть ли рассрочка?</summary><div class="faq-a">Да, рассрочка на 6 и 12 месяцев без переплат.</div></details>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-section-wrap" id="signup">
+    <div class="form-inner">
+      <div class="eyebrow" style="text-align:center">Запись</div>
+      <div class="sec-h" style="text-align:center;margin-bottom:6px">Оставьте заявку</div>
+      <p style="font-size:13px;color:var(--m);text-align:center;margin-bottom:22px">Свяжемся и расскажем всё о курсе</p>
+      <div id="lead-form">
+        <div class="form-group"><label>Ваше имя</label><input id="lf-name" type="text" placeholder="Алина"/></div>
+        <div class="form-group"><label>Телефон или Telegram</label><input id="lf-phone" type="text" placeholder="+7 900 000 00 00 или @username"/></div>
+        <div class="form-group"><label>Интересующий тариф</label><select id="lf-tariff"><option value="">Выберите тариф</option><option>Базовый</option><option>Профессионал</option><option>Пока не решил(а)</option></select></div>
+        <button class="form-submit" onclick="submitLead()">Отправить заявку</button>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+      </div>
+      <div class="success-msg" id="lead-success">✅ Заявка принята! Свяжемся в течение 24 часов.</div>
+    </div>
+  </div>
+
+  <section class="footer-cta">
+    <h2>Начните бесплатно сегодня</h2>
+    <p>Первые 2 урока открыты — без регистрации карты</p>
+    <button class="fc-btn" onclick="openModal('register')">Записаться на курс</button>
+  </section>
+  <footer><p>© 2024 Таргет Про. Все права защищены.</p></footer>
+</div>
+
+<!-- ══════════ PLATFORM PAGE ══════════ -->
+<div id="page-platform" class="page">
+  <div class="platform-layout">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">Программа курса</div>
+        <div class="prog-bar"><div class="prog-fill" id="sidebar-prog" style="width:0%"></div></div>
+        <div class="prog-label" id="sidebar-prog-label">0% пройдено</div>
+      </div>
+      <div id="sidebar-modules"></div>
+    </aside>
+    <main class="content-area" id="content-area">
+      <!-- Welcome or lesson content here -->
+    </main>
+  </div>
+</div>
+
+<!-- ══════════ LOGIN MODAL ══════════ -->
+<div class="overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal modal-wrap">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modal-login">
+      <h2>Войти в курс</h2>
+      <p class="modal-sub">Введите логин и пароль</p>
+      <div class="modal-err" id="login-err">Неверный логин или пароль</div>
+      <div class="field"><label>Логин (email или @username)</label><input id="login-user" type="text" placeholder="example@mail.ru"/></div>
+      <div class="field"><label>Пароль</label><input id="login-pass" type="password" placeholder="••••••••"/></div>
+      <button class="modal-btn" onclick="doLogin()">Войти</button>
+      <p class="modal-note">Забыли пароль? Напишите нам в Telegram</p>
+      <p class="modal-switch">Нет аккаунта? <a onclick="switchModal('register')">Зарегистрироваться</a></p>
+    </div>
+    <div id="modal-register" style="display:none">
+      <h2>Регистрация</h2>
+      <p class="modal-sub">Первые 2 урока бесплатно</p>
+      <div class="modal-err" id="reg-err">Такой пользователь уже существует</div>
+      <div class="field"><label>Имя</label><input id="reg-name" type="text" placeholder="Алина"/></div>
+      <div class="field"><label>Email</label><input id="reg-email" type="text" placeholder="example@mail.ru"/></div>
+      <div class="field"><label>Пароль</label><input id="reg-pass" type="password" placeholder="Минимум 6 символов"/></div>
+      <button class="modal-btn" onclick="doRegister()">Создать аккаунт</button>
+      <p class="modal-note">Регистрируясь, вы принимаете условия использования</p>
+      <p class="modal-switch">Уже есть аккаунт? <a onclick="switchModal('login')">Войти</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════
+// ДАННЫЕ КУРСА — редактируй здесь
+// ══════════════════════════════════════
+const COURSE = [
+  {
+    id: 1,
+    title: "Основы таргетированной рекламы",
+    lessons: [
+      {
+        id: 1, title: "Что такое таргетированная реклама", dur: "15 мин", free: true,
+        text: `<h3>Введение в таргетированную рекламу</h3>
+<p>Таргетированная реклама — это инструмент продвижения, который позволяет показывать объявления конкретной аудитории на основе её характеристик: возраста, интересов, поведения и географии.</p>
+<h3>Чем таргет отличается от контекстной рекламы?</h3>
+<p>В контекстной рекламе (Google, Яндекс) мы показываем объявления тем, кто уже ищет товар. В таргете — мы находим потенциальных клиентов сами, даже если они ещё не думали о покупке.</p>
+<ul>
+<li>Таргет работает в соцсетях: Meta (Instagram/Facebook), ВКонтакте, Telegram</li>
+<li>Мы сами выбираем кому, когда и где показывать рекламу</li>
+<li>Можно работать с холодной аудиторией на этапе формирования спроса</li>
+</ul>
+<h3>Где применяется таргет?</h3>
+<p>Таргет подходит практически для любого бизнеса: интернет-магазины, услуги, образование, рестораны, недвижимость и многое другое. Главное — правильно настроить аудиторию.</p>`,
+        youtube: "dQw4w9WgXcQ"
+      },
+      {
+        id: 2, title: "Как работает алгоритм рекламы", dur: "20 мин", free: true,
+        text: `<h3>Алгоритмы рекламных платформ</h3>
+<p>Рекламные платформы (Meta, ВКонтакте) используют сложные алгоритмы машинного обучения для определения, кому показывать вашу рекламу. Понимание этих алгоритмов — ключ к эффективному таргету.</p>
+<h3>Как алгоритм принимает решения?</h3>
+<ul>
+<li><strong>Аукцион</strong> — рекламное место получает тот, кто предложил лучшую комбинацию ставки и качества объявления</li>
+<li><strong>Релевантность</strong> — алгоритм оценивает, насколько реклама подходит пользователю</li>
+<li><strong>Обучение</strong> — чем больше конверсий, тем точнее алгоритм находит нужных людей</li>
+</ul>
+<h3>Фаза обучения</h3>
+<p>После запуска кампании алгоритму нужно время на обучение — обычно 50 конверсий за 7 дней. В этот период не меняйте настройки кампании.</p>`,
+        youtube: "dQw4w9WgXcQ"
+      },
+      {
+        id: 3, title: "Воронка продаж и таргет", dur: "18 мин", free: false,
+        text: `<h3>Воронка продаж в таргетированной рекламе</h3>
+<p>Воронка продаж — это путь клиента от первого знакомства с брендом до покупки. Таргет работает на всех этапах воронки.</p>
+<h3>Этапы воронки</h3>
+<ul>
+<li><strong>Осведомлённость (TOFU)</strong> — человек узнаёт о вашем продукте</li>
+<li><strong>Интерес (MOFU)</strong> — он изучает продукт, сравнивает</li>
+<li><strong>Решение (BOFU)</strong> — готов купить, нужен финальный импульс</li>
+</ul>
+<p>Для каждого этапа — своя аудитория, свой креатив и своя цель кампании.</p>`,
+        youtube: "dQw4w9WgXcQ"
+      },
+      {
+        id: 4, title: "Бюджет и ставки", dur: "22 мин", free: false,
+        text: `<h3>Как управлять бюджетом в таргете</h3>
+<p>Правильное распределение бюджета — один из ключевых навыков таргетолога. В этом уроке разберём все типы бюджетов и стратегии ставок.</p>
+<h3>Типы бюджетов</h3>
+<ul>
+<li><strong>Дневной бюджет</strong> — максимальная сумма в день</li>
+<li><strong>Бюджет кампании</strong> — общая сумма на весь срок</li>
+<li><strong>Бюджет группы объявлений</strong> — для каждой группы отдельно</li>
+</ul>`,
+        youtube: "dQw4w9WgXcQ"
+      },
+      {
+        id: 5, title: "Первая рекламная кампания", dur: "35 мин", free: false,
+        text: `<h3>Запускаем первую кампанию шаг за шагом</h3>
+<p>В этом практическом уроке мы пошагово создадим вашу первую рекламную кампанию в Meta Ads Manager. Повторяйте действия вместе со мной.</p>
+<h3>Что нам понадобится</h3>
+<ul>
+<li>Бизнес-аккаунт Facebook</li>
+<li>Рекламный кабинет Meta Ads Manager</li>
+<li>Готовый креатив (картинка или видео)</li>
+<li>Продающий текст объявления</li>
+</ul>`,
+        youtube: "dQw4w9WgXcQ"
+      }
+    ]
+  },
+  {
+    id: 2,
+    title: "Аудитории и сегменты",
+    lessons: [
+      {
+        id: 6, title: "Типы аудиторий в Meta", dur: "17 мин", free: false,
+        text: `<h3>Аудитории в Meta Ads</h3>
+<p>Meta предлагает три основных типа аудиторий, каждый из которых решает свою задачу в воронке продаж.</p>
+<ul>
+<li><strong>Сохранённые аудитории</strong> — настройка по интересам, демографии, поведению</li>
+<li><strong>Индивидуализированные аудитории</strong> — ваши клиенты, посетители сайта</li>
+<li><strong>Похожие аудитории (Lookalike)</strong> — люди, похожие на ваших клиентов</li>
+</ul>`,
+        youtube: "dQw4w9WgXcQ"
+      },
+      {
+        id: 7, title: "Look-alike аудитории", dur: "22 мин", free: false,
+        text: `<h3>Похожие аудитории — мощный инструмент таргетолога</h3>
+<p>Look-alike (похожие аудитории) — это технология Meta, которая находит пользователей, похожих на ваших существующих клиентов. Это один из самых эффективных инструментов таргета.</p>
+<h3>Как создать look-alike</h3>
+<ul>
+<li>Загрузите список клиентов (минимум 100 человек)</li>
+<li>Выберите процент схожести (1% — самые похожие)</li>
+<li>Укажите страну для поиска</li>
+</ul>`,
+        youtube: "dQw4w9WgXcQ"
+      }
+    ]
+  },
+  {
+    id: 3,
+    title: "Рекламные кабинеты Meta",
+    lessons: [
+      {
+        id: 8, title: "Структура Ads Manager", dur: "25 мин", free: false,
+        text: `<h3>Ads Manager — главный инструмент таргетолога</h3>
+<p>Meta Ads Manager — это рекламный кабинет, через который управляется вся реклама в Facebook и Instagram. Разберём его структуру.</p>
+<h3>Иерархия рекламы в Meta</h3>
+<ul>
+<li><strong>Кампания</strong> — цель рекламы (трафик, конверсии, охват)</li>
+<li><strong>Группа объявлений</strong> — аудитория, бюджет, расписание</li>
+<li><strong>Объявление</strong> — креатив, текст, призыв к действию</li>
+</ul>`,
+        youtube: "dQw4w9WgXcQ"
+      }
+    ]
+  }
+];
+
+// ══════════════════════════════════════
+// ПОЛЬЗОВАТЕЛИ — добавляй вручную платных учеников
+// paid: true — полный доступ, false — только 2 первых урока
+// ══════════════════════════════════════
+let USERS = JSON.parse(localStorage.getItem('tp_users') || '[]');
+// Добавляем тестового платного юзера если нет
+if (!USERS.find(u => u.email === 'admin@test.ru')) {
+  USERS.push({ name: 'Админ', email: 'admin@test.ru', password: '123456', paid: true });
+  localStorage.setItem('tp_users', JSON.stringify(USERS));
+}
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let currentUser = JSON.parse(localStorage.getItem('tp_current') || 'null');
+let progress = JSON.parse(localStorage.getItem('tp_progress_' + (currentUser?.email||'guest')) || '[]');
+let currentLesson = null;
+
+// Считаем глобальный индекс урока (для определения бесплатных)
+function getLessonGlobalIndex(modId, lessonId) {
+  let idx = 0;
+  for (const mod of COURSE) {
+    for (const les of mod.lessons) {
+      if (les.id === lessonId) return idx;
+      idx++;
+    }
+  }
+  return idx;
+}
+
+function isFreeLesson(lesson) {
+  const gi = getLessonGlobalIndex(null, lesson.id);
+  return gi < 2; // первые 2 урока бесплатно
+}
+
+function isLessonAccessible(lesson) {
+  if (isFreeLesson(lesson)) return true;
+  if (currentUser && currentUser.paid) return true;
+  return false;
+}
+
+function isDone(lessonId) {
+  return progress.includes(lessonId);
+}
+
+function saveProgress() {
+  localStorage.setItem('tp_progress_' + currentUser.email, JSON.stringify(progress));
+}
+
+// ══════════════════════════════════════
+// AUTH
+// ══════════════════════════════════════
+function openModal(type) {
+  document.getElementById('modal-overlay').classList.add('show');
+  switchModal(type);
+}
+function closeModalDirect() {
+  document.getElementById('modal-overlay').classList.remove('show');
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModalDirect();
+}
+function switchModal(type) {
+  document.getElementById('modal-login').style.display = type === 'login' ? 'block' : 'none';
+  document.getElementById('modal-register').style.display = type === 'register' ? 'block' : 'none';
+  document.getElementById('login-err').style.display = 'none';
+  document.getElementById('reg-err').style.display = 'none';
+}
+
+function doLogin() {
+  const email = document.getElementById('login-user').value.trim().toLowerCase();
+  const pass = document.getElementById('login-pass').value;
+  const users = JSON.parse(localStorage.getItem('tp_users') || '[]');
+  const user = users.find(u => u.email === email && u.password === pass);
+  if (!user) { document.getElementById('login-err').style.display = 'block'; return; }
+  setCurrentUser(user);
+}
+
+function doRegister() {
+  const name = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim().toLowerCase();
+  const pass = document.getElementById('reg-pass').value;
+  if (!name || !email || !pass || pass.length < 6) {
+    document.getElementById('reg-err').textContent = 'Заполните все поля (пароль мин. 6 символов)';
+    document.getElementById('reg-err').style.display = 'block'; return;
+  }
+  let users = JSON.parse(localStorage.getItem('tp_users') || '[]');
+  if (users.find(u => u.email === email)) {
+    document.getElementById('reg-err').textContent = 'Такой пользователь уже существует';
+    document.getElementById('reg-err').style.display = 'block'; return;
+  }
+  const newUser = { name, email, password: pass, paid: false };
+  users.push(newUser);
+  localStorage.setItem('tp_users', JSON.stringify(users));
+  setCurrentUser(newUser);
+}
+
+function setCurrentUser(user) {
+  currentUser = user;
+  localStorage.setItem('tp_current', JSON.stringify(user));
+  progress = JSON.parse(localStorage.getItem('tp_progress_' + user.email) || '[]');
+  closeModalDirect();
+  updateTopbar();
+  goPage('platform');
+  renderSidebar();
+  showWelcome();
+}
+
+function doLogout() {
+  currentUser = null;
+  localStorage.removeItem('tp_current');
+  updateTopbar();
+  goPage('landing');
+}
+
+function updateTopbar() {
+  const el = document.getElementById('topbar-right');
+  if (currentUser) {
+    el.innerHTML = `<div class="user-pill">👤 ${currentUser.name}</div>
+    ${currentUser.paid ? '<span style="font-size:11px;background:#e8faf0;color:#1a7a3c;padding:4px 9px;border-radius:6px;font-weight:600">✓ Полный доступ</span>' : '<span style="font-size:11px;color:var(--l)">Бесплатный</span>'}
+    <button class="btn btn-outline btn-sm" onclick="doLogout()">Выйти</button>`;
+  } else {
+    el.innerHTML = `<button class="btn btn-outline btn-sm" onclick="openModal('login')">Войти</button>
+    <button class="btn btn-purple btn-sm" onclick="openModal('register')">Записаться</button>`;
+  }
+}
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+function goPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('page-' + p).classList.add('active');
+  window.scrollTo(0, 0);
+}
+function goLanding() {
+  if (!currentUser) goPage('landing');
+}
+
+// ══════════════════════════════════════
+// SIDEBAR
+// ══════════════════════════════════════
+function renderSidebar() {
+  const container = document.getElementById('sidebar-modules');
+  container.innerHTML = '';
+  let totalLessons = 0, doneLessons = 0;
+  COURSE.forEach(mod => {
+    totalLessons += mod.lessons.length;
+    doneLessons += mod.lessons.filter(l => isDone(l.id)).length;
+    const modDone = mod.lessons.every(l => isDone(l.id));
+    const modActive = mod.lessons.some(l => currentLesson && l.id === currentLesson.id);
+    const div = document.createElement('div');
+    div.className = 'mod-group';
+
+    let badgeCls = modDone ? 'mn-done' : (modActive ? 'mn-active' : 'mn-lock');
+    let badgeIcon = modDone ? '✓' : mod.id;
+
+    div.innerHTML = `
+      <button class="mod-title-btn ${modActive ? 'active-mod open' : ''}" onclick="toggleMod(this)">
+        <div class="mod-num-badge ${badgeCls}">${badgeIcon}</div>
+        <div class="mod-info-wrap">
+          <div class="mod-name">${mod.title}</div>
+          <div class="mod-lessons-count">${mod.lessons.length} уроков</div>
+        </div>
+        <span class="mod-chevron">›</span>
+      </button>
+      <div class="lessons-list ${modActive ? '' : ''}">
+        ${mod.lessons.map(les => {
+          const accessible = isLessonAccessible(les);
+          const done = isDone(les.id);
+          const active = currentLesson && les.id === currentLesson.id;
+          const freeLesson = isFreeLesson(les);
+          return `<button class="lesson-btn ${active ? 'active-lesson' : ''} ${!accessible ? 'locked-lesson' : ''}"
+            onclick="${accessible ? `openLesson(${mod.id}, ${les.id})` : `showLockScreen()`}">
+            <div class="les-ic ${done ? 'li-done' : (active ? 'li-play' : 'li-lock')}">${done ? '✓' : (active ? '▶' : (accessible ? '○' : '🔒'))}</div>
+            <span class="les-name ${done ? 'done-text' : ''}">${les.title}</span>
+            ${freeLesson ? '<span class="free-tag">FREE</span>' : ''}
+            <span class="les-dur">${les.dur}</span>
+          </button>`;
+        }).join('')}
+      </div>`;
+    container.appendChild(div);
+  });
+
+  // Открываем активный модуль
+  const activeMod = container.querySelector('.active-mod');
+  if (activeMod) {
+    activeMod.classList.add('open');
+    activeMod.nextElementSibling.style.display = 'block';
+  }
+
+  // Progress
+  const pct = totalLessons ? Math.round(doneLessons / totalLessons * 100) : 0;
+  document.getElementById('sidebar-prog').style.width = pct + '%';
+  document.getElementById('sidebar-prog-label').textContent = `${pct}% пройдено · ${doneLessons} из ${totalLessons} уроков`;
+}
+
+function toggleMod(btn) {
+  btn.classList.toggle('open');
+  const list = btn.nextElementSibling;
+  list.style.display = list.style.display === 'block' ? 'none' : 'block';
+}
+
+// ══════════════════════════════════════
+// CONTENT
+// ══════════════════════════════════════
+function showWelcome() {
+  const area = document.getElementById('content-area');
+  area.innerHTML = `
+    <div class="welcome-card">
+      <div class="wc-title">👋 Добро пожаловать, ${currentUser.name}!</div>
+      <div class="wc-sub">${currentUser.paid
+        ? 'У вас полный доступ ко всем модулям курса. Начните с первого урока или продолжите там, где остановились.'
+        : 'У вас бесплатный доступ — открыты первые 2 урока. Чтобы получить полный доступ, свяжитесь с нами.'
+      }</div>
+      <div class="wc-stats">
+        <div class="wcs"><div class="wcs-n">${COURSE.length}</div><div class="wcs-l">Модулей</div></div>
+        <div class="wcs"><div class="wcs-n">${COURSE.reduce((a,m)=>a+m.lessons.length,0)}</div><div class="wcs-l">Уроков</div></div>
+        <div class="wcs"><div class="wcs-n">${progress.length}</div><div class="wcs-l">Пройдено</div></div>
+      </div>
+    </div>
+    ${!currentUser.paid ? `
+    <div style="background:#fff3cd;border:1px solid #ffc107;border-radius:11px;padding:18px;margin-bottom:16px">
+      <div style="font-size:14px;font-weight:600;color:#856404;margin-bottom:6px">🔒 Расширьте доступ</div>
+      <div style="font-size:13px;color:#856404;margin-bottom:12px">Вам доступны первые 2 урока бесплатно. Для полного доступа ко всем 105 урокам — оплатите курс.</div>
+      <button class="btn btn-purple" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'});goPage('landing')">Узнать стоимость</button>
+    </div>` : ''}
+    <button class="btn btn-purple" onclick="openFirstLesson()" style="margin-top:4px">
+      ${progress.length > 0 ? '▶ Продолжить обучение' : '▶ Начать первый урок'}
+    </button>`;
+}
+
+function openFirstLesson() {
+  for (const mod of COURSE) {
+    for (const les of mod.lessons) {
+      if (!isDone(les.id)) { openLesson(mod.id, les.id); return; }
+    }
+  }
+  openLesson(COURSE[0].id, COURSE[0].lessons[0].id);
+}
+
+function openLesson(modId, lessonId) {
+  const mod = COURSE.find(m => m.id === modId);
+  const lesson = mod.lessons.find(l => l.id === lessonId);
+  if (!lesson) return;
+  if (!isLessonAccessible(lesson)) { showLockScreen(); return; }
+  currentLesson = lesson;
+
+  // Find next lesson
+  let nextMod = null, nextLesson = null;
+  let found = false;
+  outer: for (const m of COURSE) {
+    for (const l of m.lessons) {
+      if (found) { nextMod = m; nextLesson = l; break outer; }
+      if (l.id === lessonId) found = true;
+    }
+  }
+
+  const area = document.getElementById('content-area');
+  area.innerHTML = `
+    <div class="lesson-content show">
+      <div class="lc-eyebrow">Модуль ${modId} · Урок ${lessonId}</div>
+      <div class="lc-title">${lesson.title}</div>
+      <div class="lc-meta">
+        <span>⏱ ${lesson.dur}</span>
+        ${isFreeLesson(lesson) ? '<span style="background:var(--g);color:var(--gt);padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600">БЕСПЛАТНЫЙ</span>' : ''}
+        ${isDone(lesson.id) ? '<span style="background:var(--g);color:var(--gt);padding:2px 8px;border-radius:5px;font-size:11px;font-weight:600">✓ Пройдено</span>' : ''}
+      </div>
+
+      <div class="lc-text">${lesson.text}</div>
+
+      <div style="margin-bottom:10px;font-size:13px;font-weight:600;color:var(--t)">📹 Видео урока</div>
+      <div class="video-wrap">
+        <iframe src="https://www.youtube.com/embed/${lesson.youtube}?rel=0" allowfullscreen></iframe>
+      </div>
+
+      <div class="nav-btns">
+        ${!isDone(lesson.id) ? `<button class="mark-done-btn" onclick="markDone(${modId}, ${lessonId})">✓ Отметить как пройденный</button>` : ''}
+        ${nextLesson ? `<button class="next-lesson-btn" onclick="${isLessonAccessible(nextLesson) ? `openLesson(${nextMod.id}, ${nextLesson.id})` : 'showLockScreen()'}">
+          ${isLessonAccessible(nextLesson) ? 'Следующий урок →' : '🔒 Следующий урок (нужна оплата)'}
+        </button>` : '<div style="background:var(--g);color:var(--gt);border-radius:8px;padding:11px 20px;font-size:13px;font-weight:600">🎉 Вы завершили курс!</div>'}
+      </div>
+    </div>`;
+
+  renderSidebar();
+  window.scrollTo(0, 0);
+}
+
+function markDone(modId, lessonId) {
+  if (!isDone(lessonId)) {
+    progress.push(lessonId);
+    saveProgress();
+  }
+  openLesson(modId, lessonId);
+}
+
+function showLockScreen() {
+  const area = document.getElementById('content-area');
+  area.innerHTML = `
+    <div class="lock-screen">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">Этот урок закрыт</div>
+      <div class="lock-desc">Для доступа ко всем урокам курса необходимо приобрести полный доступ.<br><br>У вас есть бесплатный доступ к первым 2 урокам.</div>
+      <button class="btn btn-purple" style="margin-bottom:10px;width:100%" onclick="goPage('landing');setTimeout(()=>document.getElementById('signup').scrollIntoView({behavior:'smooth'}),100)">Узнать стоимость курса</button>
+      <button class="btn btn-outline" style="width:100%" onclick="openLesson(${COURSE[0].id}, ${COURSE[0].lessons[0].id})">Вернуться к бесплатным урокам</button>
+    </div>`;
+}
+
+// ══════════════════════════════════════
+// LEAD FORM
+// ══════════════════════════════════════
+function submitLead() {
+  const name = document.getElementById('lf-name').value.trim();
+  const phone = document.getElementById('lf-phone').value.trim();
+  if (!name || !phone) { alert('Пожалуйста, заполните имя и контакт'); return; }
+  document.getElementById('lead-form').style.display = 'none';
+  document.getElementById('lead-success').style.display = 'block';
+  // Подключи свой API/Telegram bot здесь
+}
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+window.onload = function() {
+  updateTopbar();
+  if (currentUser) {
+    goPage('platform');
+    renderSidebar();
+    showWelcome();
+  }
+};
+</script>
+</body>
+</html>
