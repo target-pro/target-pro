@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Таргет Про — курс таргетолога с нуля</title>
+  <meta name="description" content="Практический курс по таргетированной рекламе в Meta, ВКонтакте и Telegram. Реальные кейсы, живые проекты, трудоустройство." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --purple: #7B5EE8;
+      --purple-light: #ede9fb;
+      --purple-dark: #6342c8;
+      --purple-deep: #1a1a2e;
+      --green-bg: #e8faf0;
+      --green-text: #1a7a3c;
+      --bg: #f5f4f8;
+      --white: #ffffff;
+      --border: #e8e6f0;
+      --text: #1a1a2e;
+      --muted: #888;
+      --light: #aaa;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+ 
+    /* ── TOPBAR ── */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon {
+      width: 36px; height: 36px;
+      background: var(--purple);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .logo-name { font-size: 15px; font-weight: 600; color: var(--text); }
+    .topbar-btn {
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity .15s;
+    }
+    .topbar-btn:hover { opacity: .88; }
+ 
+    /* ── HERO ── */
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 56px 24px 48px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(26px, 6vw, 42px);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 16px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .hero h1 span { color: var(--purple); }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .hs {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px 20px;
+      min-width: 100px;
+    }
+    .hs-n { font-size: 22px; font-weight: 600; color: var(--purple); }
+    .hs-l { font-size: 11px; color: var(--light); margin-top: 2px; }
+    .cta-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .cta-main {
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 16px 40px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+    .cta-main:hover { opacity: .88; }
+    .cta-note { font-size: 12px; color: var(--light); }
+ 
+    /* ── SECTIONS ── */
+    .section {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .section-full {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px;
+    }
+    .section-full .inner { max-width: 720px; margin: 0 auto; }
+ 
+    .sec-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--purple);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 6px;
+    }
+    .sec-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+ 
+    /* ── FOR WHOM ── */
+    .fw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .fw-card {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .fw-icon {
+      width: 38px; height: 38px;
+      background: var(--purple-light);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    .fw-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .fw-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+ 
+    /* ── PROGRAM ── */
+    .prog-list { display: flex; flex-direction: column; gap: 6px; }
+    .prog-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg);
+      border-radius: 9px;
+      padding: 12px 14px;
+    }
+    .prog-num {
+      width: 28px; height: 28px;
+      background: var(--purple-light);
+      border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 600;
+      color: var(--purple-dark);
+      flex-shrink: 0;
+    }
+    .prog-title { font-size: 13px; color: var(--text); flex: 1; }
+    .prog-meta { font-size: 11px; color: var(--light); white-space: nowrap; }
+    .prog-more {
+      background: var(--purple-light);
+      border-radius: 9px;
+      padding: 12px 14px;
+      font-size: 12px;
+      color: var(--purple-dark);
+      text-align: center;
+      font-weight: 500;
+    }
+ 
+    /* ── RESULTS ── */
+    .res-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .res-card {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .res-icon {
+      width: 34px; height: 34px;
+      background: var(--green-bg);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+    .res-text { font-size: 13px; color: var(--text); line-height: 1.6; }
+ 
+    /* ── REVIEWS ── */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+    .rev-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .rev-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .rev-av {
+      width: 36px; height: 36px;
+      background: var(--purple-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600;
+      color: var(--purple-dark);
+      flex-shrink: 0;
+    }
+    .rev-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .rev-role { font-size: 11px; color: var(--light); }
+    .stars { color: #f59e0b; font-size: 13px; margin-left: auto; letter-spacing: 2px; }
+    .rev-text { font-size: 13px; color: #555; line-height: 1.7; }
+ 
+    /* ── PRICING ── */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+    .pc {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+    }
+    .pc.featured {
+      background: var(--white);
+      border: 2px solid var(--purple);
+    }
+    .pop-badge {
+      display: inline-block;
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 5px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .pc-label { font-size: 11px; color: var(--light); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+    .pc-name { font-size: 17px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .pc-price { font-size: 28px; font-weight: 600; color: var(--purple); margin-bottom: 6px; }
+    .pc-price span { font-size: 14px; color: var(--light); font-weight: 400; }
+    .pc-soon { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
+    .pc-feats { display: flex; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .pf { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text); }
+    .pf::before { content: '✓'; color: var(--purple); font-weight: 600; flex-shrink: 0; }
+    .pc-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+      border: none;
+    }
+    .pc-btn:hover { opacity: .88; }
+    .pc-btn.solid { background: var(--purple); color: #fff; }
+    .pc-btn.outline { background: transparent; color: var(--purple); border: 1.5px solid var(--purple); }
+ 
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 8px; }
+    details {
+      background: var(--bg);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+    }
+    details[open] { background: var(--purple-light); }
+    summary {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 18px; color: var(--purple); }
+    details[open] summary::after { content: '−'; }
+    .faq-a { font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.7; }
+ 
+    /* ── FORM ── */
+    .form-section {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 48px 24px;
+    }
+    .form-inner { max-width: 480px; margin: 0 auto; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    label { font-size: 13px; font-weight: 500; color: var(--text); }
+    input, select {
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color .15s;
+    }
+    input:focus, select:focus { border-color: var(--purple); }
+    .form-submit {
+      width: 100%;
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 9px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 4px;
+      transition: opacity .15s;
+    }
+    .form-submit:hover { opacity: .88; }
+    .form-note { font-size: 11px; color: var(--light); text-align: center; margin-top: 10px; }
+    .success-msg {
+      display: none;
+      background: var(--green-bg);
+      color: var(--green-text);
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 14px;
+      text-align: center;
+      font-weight: 500;
+    }
+ 
+    /* ── FOOTER CTA ── */
+    .footer-cta {
+      background: var(--purple);
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .footer-cta h2 { font-size: 24px; font-weight: 600; color: #fff; margin-bottom: 8px; }
+    .footer-cta p { font-size: 14px; color: rgba(255,255,255,.7); margin-bottom: 24px; }
+    .fc-btn {
+      background: #fff;
+      color: var(--purple);
+      border: none;
+      border-radius: 12px;
+      padding: 14px 36px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity .15s;
+    }
+    .fc-btn:hover { opacity: .9; }
+ 
+    /* ── FOOTER ── */
+    footer {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--light);
+    }
+ 
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 36px 16px 32px; }
+      .section, .section-full, .form-section { padding: 36px 16px; }
+      .hero-stats { gap: 8px; }
+      .hs { min-width: 80px; padding: 10px 14px; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <a class="logo" href="#">
+      <div class="logo-icon">🎯</div>
+      <span class="logo-name">Таргет Про</span>
+    </a>
+    <a href="#signup" class="topbar-btn">Записаться</a>
+  </header>
+ 
+  <!-- HERO -->
+  <section class="hero">
+    <div class="badge">🚀 Старт потока — 1 июля</div>
+    <h1>Стань <span>таргетологом</span><br>с нуля за 3 месяца</h1>
+    <p class="hero-sub">Практический курс по рекламе в Meta, ВКонтакте и Telegram. Реальные кейсы, живые проекты, трудоустройство.</p>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">1 240</div><div class="hs-l">Выпускников</div></div>
+      <div class="hs"><div class="hs-n">20</div><div class="hs-l">Модулей</div></div>
+      <div class="hs"><div class="hs-n">105</div><div class="hs-l">Уроков</div></div>
+      <div class="hs"><div class="hs-n">3 мес</div><div class="hs-l">Обучения</div></div>
+    </div>
+    <div class="cta-wrap">
+      <button class="cta-main" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Записаться на курс</button>
+      <span class="cta-note">🎁 Первые 3 урока бесплатно</span>
+    </div>
+  </section>
+ 
+  <!-- FOR WHOM -->
+  <div class="section-full" style="background:#f5f4f8; border-bottom: 1px solid #e8e6f0;">
+    <div class="inner">
+      <div class="sec-eyebrow">Для кого</div>
+      <div class="sec-title">Кому подойдёт курс</div>
+      <div class="fw-grid">
+        <div class="fw-card">
+          <div class="fw-icon">👤</div>
+          <div class="fw-title">Новичкам без опыта</div>
+          <div class="fw-desc">Объясняем с нуля — от основ рекламы до первого оплачиваемого проекта</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-icon">💼</div>
+          <div class="fw-title">Фрилансерам и SMM</div>
+          <div class="fw-desc">Добавьте таргет в свои услуги и увеличьте доход в 1,5–2 раза</div>
+        </div>
+        <div class="fw-card">
+          <div class="fw-icon">🏪</div>
+          <div class="fw-title">Владельцам бизнеса</div>
+          <div class="fw-desc">Настраивайте рекламу самостоятельно и сэкономьте на агентстве</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- PROGRAM -->
+  <div class="section-full">
+    <div class="inner">
+      <div class="sec-eyebrow">Программа</div>
+      <div class="sec-title">20 модулей курса</div>
+      <div class="prog-list">
+        <div class="prog-row"><div class="prog-num">01</div><div class="prog-title">Основы таргетированной рекламы</div><div class="prog-meta">5 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">02</div><div class="prog-title">Аудитории и сегменты</div><div class="prog-meta">6 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">03</div><div class="prog-title">Рекламные кабинеты Meta</div><div class="prog-meta">7 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">04</div><div class="prog-title">Креативы и продающие тексты</div><div class="prog-meta">8 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">05</div><div class="prog-title">Аналитика и оптимизация рекламы</div><div class="prog-meta">6 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">06</div><div class="prog-title">Таргет ВКонтакте</div><div class="prog-meta">5 уроков</div></div>
+        <div class="prog-row"><div class="prog-num">07</div><div class="prog-title">Реклама в Telegram</div><div class="prog-meta">5 уроков</div></div>
+        <div class="prog-more">+ ещё 13 модулей: работа с клиентами, ценообразование, кейсы и многое другое</div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- RESULTS -->
+  <div class="section-full" style="background:#f5f4f8; border-bottom: 1px solid #e8e6f0;">
+    <div class="inner">
+      <div class="sec-eyebrow">Результат</div>
+      <div class="sec-title">Что вы получите</div>
+      <div class="res-grid">
+        <div class="res-card"><div class="res-icon">🎓</div><div class="res-text">Диплом таргетолога, подтверждающий ваши навыки</div></div>
+        <div class="res-card"><div class="res-icon">👥</div><div class="res-text">Закрытое сообщество выпускников и нетворкинг</div></div>
+        <div class="res-card"><div class="res-icon">🤝</div><div class="res-text">Помощь в трудоустройстве и поиске первых клиентов</div></div>
+        <div class="res-card"><div class="res-icon">♾️</div><div class="res-text">Пожизненный доступ к материалам и обновлениям курса</div></div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- REVIEWS -->
+  <div class="section-full">
+    <div class="inner">
+      <div class="sec-eyebrow">Отзывы</div>
+      <div class="sec-title">Что говорят выпускники</div>
+      <div class="reviews-grid">
+        <div class="rev-card">
+          <div class="rev-top">
+            <div class="rev-av">АК</div>
+            <div><div class="rev-name">Алина К.</div><div class="rev-role">Фрилансер, Москва</div></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <div class="rev-text">За месяц после курса нашла трёх клиентов. Практика реальная, не вода — сразу в дело.</div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-top">
+            <div class="rev-av">МТ</div>
+            <div><div class="rev-name">Максим Т.</div><div class="rev-role">Владелец кофейни</div></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <div class="rev-text">Настроил рекламу сам — сэкономил 40 000 руб. в месяц на агентстве. Окупился за неделю.</div>
+        </div>
+        <div class="rev-card">
+          <div class="rev-top">
+            <div class="rev-av">СМ</div>
+            <div><div class="rev-name">Светлана М.</div><div class="rev-role">SMM-специалист</div></div>
+            <div class="stars">★★★★★</div>
+          </div>
+          <div class="rev-text">Добавила таргет к своим услугам — чек на клиентов вырос в два раза. Рекомендую!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- PRICING -->
+  <div class="section-full" style="background:#f5f4f8; border-bottom: 1px solid #e8e6f0;">
+    <div class="inner">
+      <div class="sec-eyebrow">Тарифы</div>
+      <div class="sec-title">Выберите формат</div>
+      <div class="pricing-grid">
+        <div class="pc">
+          <div class="pc-label">Самостоятельный</div>
+          <div class="pc-name">Базовый</div>
+          <div class="pc-price">— <span>руб.</span></div>
+          <div class="pc-soon">Цена скоро будет объявлена</div>
+          <div class="pc-feats">
+            <div class="pf">Все 20 модулей</div>
+            <div class="pf">Домашние задания</div>
+            <div class="pf">Чат поддержки</div>
+            <div class="pf">Пожизненный доступ</div>
+          </div>
+          <button class="pc-btn outline" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Предзаписаться</button>
+        </div>
+        <div class="pc featured">
+          <div class="pop-badge">★ Популярный</div>
+          <div class="pc-label">С куратором</div>
+          <div class="pc-name">Профессионал</div>
+          <div class="pc-price">— <span>руб.</span></div>
+          <div class="pc-soon">Цена скоро будет объявлена</div>
+          <div class="pc-feats">
+            <div class="pf">Всё из базового</div>
+            <div class="pf">Проверка ДЗ куратором</div>
+            <div class="pf">2 живых вебинара в неделю</div>
+            <div class="pf">Помощь в трудоустройстве</div>
+          </div>
+          <button class="pc-btn solid" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Предзаписаться</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- FAQ -->
+  <div class="section-full">
+    <div class="inner">
+      <div class="sec-eyebrow">Вопросы</div>
+      <div class="sec-title">Часто спрашивают</div>
+      <div class="faq-list">
+        <details>
+          <summary>Нужен ли опыт в рекламе?</summary>
+          <div class="faq-a">Нет, курс подходит для полных новичков. Начинаем с самых азов и разбираем каждый шаг.</div>
+        </details>
+        <details>
+          <summary>Сколько времени нужно в день?</summary>
+          <div class="faq-a">1–2 часа в день. Можно учиться в своём темпе — доступ к материалам без ограничений по времени.</div>
+        </details>
+        <details>
+          <summary>Будет ли обратная связь от куратора?</summary>
+          <div class="faq-a">В тарифе «Профессионал» — да, куратор проверяет все домашние задания и даёт развёрнутую обратную связь.</div>
+        </details>
+        <details>
+          <summary>Есть ли рассрочка?</summary>
+          <div class="faq-a">Да, доступна рассрочка на 6 и 12 месяцев без переплат. Уточните детали при записи.</div>
+        </details>
+        <details>
+          <summary>Помогаете с трудоустройством?</summary>
+          <div class="faq-a">В тарифе «Профессионал» мы помогаем оформить портфолио и подключаем к базе работодателей-партнёров.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- SIGNUP FORM -->
+  <section class="form-section" id="signup">
+    <div class="form-inner">
+      <div class="sec-eyebrow" style="text-align:center">Запись</div>
+      <div class="sec-title" style="text-align:center">Оставьте заявку</div>
+      <p style="font-size:13px;color:#888;text-align:center;margin-bottom:24px;margin-top:-10px">Мы свяжемся с вами и расскажем всё о курсе</p>
+ 
+      <div id="signup-form">
+        <div class="form-group">
+          <label for="name">Ваше имя</label>
+          <input type="text" id="name" placeholder="Алина" required />
+        </div>
+        <div class="form-group">
+          <label for="phone">Телефон или Telegram</label>
+          <input type="text" id="phone" placeholder="+7 900 000 00 00 или @username" required />
+        </div>
+        <div class="form-group">
+          <label for="tariff">Интересующий тариф</label>
+          <select id="tariff">
+            <option value="">Выберите тариф</option>
+            <option value="base">Базовый</option>
+            <option value="pro">Профессионал</option>
+            <option value="unsure">Пока не решил(а)</option>
+          </select>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Отправить заявку</button>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+      </div>
+ 
+      <div class="success-msg" id="success-msg">
+        ✅ Заявка принята! Мы свяжемся с вами в течение 24 часов.
+      </div>
+    </div>
+  </section>
+ 
+  <!-- FOOTER CTA -->
+  <section class="footer-cta">
+    <h2>Начните бесплатно сегодня</h2>
+    <p>Первые 3 урока открыты — без регистрации карты</p>
+    <button class="fc-btn" onclick="document.getElementById('signup').scrollIntoView({behavior:'smooth'})">Записаться на курс</button>
+  </section>
+ 
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2024 Таргет Про. Все права защищены.</p>
+  </footer>
+ 
+  <script>
+    function submitForm() {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      if (!name || !phone) {
+        alert('Пожалуйста, заполните имя и телефон');
+        return;
+      }
+      document.getElementById('signup-form').style.display = 'none';
+      document.getElementById('success-msg').style.display = 'block';
+ 
+      // Сюда можно подключить Google Forms, Telegram Bot или любой API
+      // fetch('ВАШ_URL', { method: 'POST', body: JSON.stringify({name, phone}) })
+    }
+  </script>
+ 
+</body>
+</html>
+ 
