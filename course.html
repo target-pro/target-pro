@@ -599,23 +599,47 @@ function doLogin() {
   setCurrentUser(user);
 }
 
-function doRegister() {
-  const name = document.getElementById('reg-name').value.trim();
-  const email = document.getElementById('reg-email').value.trim().toLowerCase();
-  const pass = document.getElementById('reg-pass').value;
-  if (!name || !email || !pass || pass.length < 6) {
-    document.getElementById('reg-err').textContent = 'Заполните все поля (пароль мин. 6 символов)';
-    document.getElementById('reg-err').style.display = 'block'; return;
-  }
-  let users = JSON.parse(localStorage.getItem('tp_users') || '[]');
-  if (users.find(u => u.email === email)) {
-    document.getElementById('reg-err').textContent = 'Такой пользователь уже существует';
-    document.getElementById('reg-err').style.display = 'block'; return;
-  }
-  const newUser = { name, email, password: pass, paid: false };
-  users.push(newUser);
-  localStorage.setItem('tp_users', JSON.stringify(users));
-  setCurrentUser(newUser);
+function doRegister() {const name = document.getElementById('reg-name').value.trim();
+const email = document.getElementById('reg-email').value.trim().toLowerCase();
+const pass = document.getElementById('reg-pass').value;
+
+if (!name || !email || !pass || pass.length < 6) {
+    document.getElementById('reg-err').textContent =
+        'Заполните все поля (пароль мин. 6 символов)';
+    document.getElementById('reg-err').style.display = 'block';
+    return;
+}
+
+let users = JSON.parse(localStorage.getItem('tp_users') || '[]');
+
+if (users.find(u => u.email === email)) {
+    document.getElementById('reg-err').textContent =
+        'Такой пользователь уже существует';
+    document.getElementById('reg-err').style.display = 'block';
+    return;
+}
+
+const newUser = {
+    name,
+    email,
+    password: pass,
+    paid: false
+};
+
+users.push(newUser);
+localStorage.setItem('tp_users', JSON.stringify(users));
+
+fetch('https://script.google.com/macros/s/AKfycbzGwYfu_GUwrmuRkYqGfzUpFF3IW2NzdR2gu5w4ONj1w5e9r8F5e5gXcbdtSzUu-rA/exec', {
+    method: 'POST',
+   
+    body: JSON.stringify({
+        name: name,
+        email: email,
+        password: pass
+    })
+}).catch(err => console.log(err));
+
+setCurrentUser(newUser);
 }
 
 function setCurrentUser(user) {
